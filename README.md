@@ -46,6 +46,7 @@ Optional environment variables:
  - `NAME`: Specifies the server name
  - `HTTPS`: Enables https. You must place `privkey.pem` and `fullchain.pem` in your CWD.
  - `SSLPATH`: Specifies an alternate path to SSL certificates.
+ - `HIDEIP`: If set, hides the public ip on the public website, replacing it with redacted.
 
 ## Deploy to Heroku
 

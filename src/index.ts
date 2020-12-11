@@ -1,12 +1,13 @@
-import express from 'express';
-import { Server } from 'http';
-import { Server as HttpsServer } from 'https';
 import { readFileSync, readdirSync } from 'fs';
-import { join } from 'path';
-import socketIO from 'socket.io';
+
+import { Server as HttpsServer } from 'https';
+import { Server } from 'http';
 import Tracer from 'tracer';
+import express from 'express';
+import { join } from 'path';
 import morgan from 'morgan';
 import publicIp from 'public-ip';
+import socketIO from 'socket.io';
 
 const httpsEnabled = !!process.env.HTTPS;
 
@@ -45,7 +46,7 @@ let connectionCount = 0;
 let address = process.env.ADDRESS;
 
 app.get('/', (_, res) => {
-	res.render('index', { connectionCount, address });
+	res.render('index', { connectionCount, address: process.env.HIDEIP ? `<redacted>:${port}` : address });
 });
 
 app.get('/health', (req, res) => {
