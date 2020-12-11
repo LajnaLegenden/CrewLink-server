@@ -53,7 +53,7 @@ app.get('/health', (req, res) => {
 	res.json({
 		uptime: process.uptime(),
 		connectionCount,
-		address,
+		address: process.env.HIDEIP ? `<redacted>:${port}` : address,
 		name: process.env.NAME,
 		supportedVersions
 	});
@@ -122,7 +122,7 @@ io.on('connection', (socket: socketIO.Socket) => {
 
 server.listen(port);
 (async () => {
-	if (!address)
+	if (!address && !process.env.HIDEIP)
 		address = `http://${await publicIp.v4()}:${port}`;
-	logger.info('CrewLink Server started: %s', address);
+	logger.info('CrewLink Server started: %s', address || `<redacted>:${port}`);
 })();
